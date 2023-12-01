@@ -10,8 +10,8 @@ main:
 	push rbp
 	mov rbp, rsp
 
-				; int64_t i;
-	sub rsp, 16
+				; __int128 i; // or int i[4];
+	sub rsp, 16		; allocates 16 bytes on the stack
 
 				; printf(msg);
 	mov eax, 0
