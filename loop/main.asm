@@ -44,10 +44,10 @@ loop:
 	call printf
 
 				; i++;
-	mov ecx, DWORD [number]
 	inc DWORD [rbp-4]
 
 				; } while (i < number);
+	mov ecx, DWORD [number]
 	cmp [rbp-4], ecx
 	jle loop
 
