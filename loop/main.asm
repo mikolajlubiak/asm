@@ -51,8 +51,10 @@ loop:
 	cmp [rbp-4], ecx
 	jle loop
 
-				; }
+				; free(&i);
 	add rsp, 16
+
+				; }
 	mov rsp, rbp
 	pop rbp
 	ret
