@@ -10,8 +10,8 @@ main:
 	push rbp
 	mov rbp, rsp
 
-				; __int128 i; // or int i[4];
-	sub rsp, 16		; allocates 16 bytes on the stack
+				; int32_t i;
+	sub rsp, 4		; allocates 4 bytes on the stack
 
 				; printf(msg);
 	mov eax, 0
@@ -31,28 +31,28 @@ main:
 
 
 				; i=0;
-	mov DWORD [rbp-4], 0
+	mov rbp, 0
 
 				; do {
 loop:
 
 				; printf(msg2, i, number);
 	mov edx, [number]
-	mov rsi, [rbp-4]
+	mov rsi, rbp
 	lea rdi, [msg2]
 	mov eax, 0
 	call printf
 
 				; i++;
-	inc DWORD [rbp-4]
+	inc rbp
 
 				; } while (i < number);
-	mov ecx, DWORD [number]
-	cmp [rbp-4], ecx
+	mov ecx, [number]
+	cmp rbp, rcx
 	jle loop
 
 				; free(&i);
-	add rsp, 16
+	add rsp, 4
 
 				; }
 	mov rsp, rbp
