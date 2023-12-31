@@ -5,7 +5,7 @@ section .text
 main:
 	push rbp
 	mov rbp, rsp
-	sub rsp, 16		; allocates 16 bytes on the stack, the number of bytes has to be a multiple of 16
+	sub rsp, 16	; allocates 16 bytes on the stack, the number of bytes has to be a multiple of 16
 
 		; printf(msg);
 	xor rax, rax
@@ -37,24 +37,23 @@ loop:
 		; i++;
 	inc QWORD [rbp-8]
 
-		; 
+		; if i <= number
 	mov rax, [number]
 	cmp QWORD [rbp-8], rax
 	jle loop
 
-	add rsp, 16
-	mov rsp, rbp
-	pop rbp
+	xor rax, rax
+	leave
 	ret
 
 section .data
 		; char* msg = "Enter number: \0";
-	msg: db "Enter number: ", 0 ; (0 -> \0) 
+	msg: db "Enter number: ", 0
 		; char* msg2 = "Looping %d out of %d\n\0";
-	msg2: db "Looping %d out of %d", 10, 0 ; (10 -> \n, 0 -> \0)
+	msg2: db "Looping %d out of %d", 10, 0
 		; char* format = "%d\0";
 	format: db "%d", 0
 
 section .bss
 		; int64_t number;
-	number: resq 1		; 8 bytes (64 bits)
+	number: resq 1		; 8 bytes/1 QWORD (64 bits)
